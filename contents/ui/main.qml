@@ -1,7 +1,9 @@
 import QtQuick 2.0
+import org.kde.kwin 2.0 as KWin
 import org.kde.kwin 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as Plasma
+// Fuck this command, in particular.
 // import org.kde.plasma.graphicswidgets 2.0 as PlasmaWidgets
 
 Item {
@@ -48,7 +50,7 @@ Item {
 					}
 
 					PropertyChanges {
-// 						target: views.children[index]
+ 						target: views.children[index]
 						opacity: 1
 					}
 				},
@@ -132,44 +134,50 @@ Item {
 		focus: true
 		anchors.rightMargin: 20
 
-// 		PlasmaWidgets.LineEdit {
-// 			id: searchField
-// 			text: ""
-// 			width: 190
-// 			z: 9
-// 			anchors {
-// 				top: parent.top
-// 				topMargin: 20
-// 				right: parent.right
-// 				rightMargin: 20
-// 			}
-//
-// 			onTextChanged: {
-//
-// 				if(text.length >= mininumStringLength) {
-//
-// 					// set search query
-// 					searchQuery = text.toLowerCase();
-//
-// 					// activate search view
-// 					dashboardCategories.currentIndex = 3;
-//
-// 					// search - activities
-// 					searchView.search();
-//
-// 				} else {
-//
-// 					// activate windows
-// 					dashboardCategories.currentIndex = previousIndex;
-//
-// 					// hide search button
-// 					dashboardCategories.contentItem.children[4].state = "hide";
-//
-// 				};
-//
-// 			}
-//
-// 		}
+        //Plasma.TextField {
+        // Was once LineEdit
+        //    id: test
+        //}
+
+        FAIL OUT
+ 		Plasma.TextField {
+ 			id: searchField
+ 			text: ""
+ 			width: 190
+ 			z: 9
+ 			anchors {
+ 				top: parent.top
+ 				topMargin: 20
+ 				right: parent.right
+ 				rightMargin: 20
+ 			}
+
+ 			onTextChanged: {
+
+ 				if(text.length >= mininumStringLength) {
+
+ 					// set search query
+ 					searchQuery = text.toLowerCase();
+
+ 					// activate search view
+ 					dashboardCategories.currentIndex = 3;
+
+ 					// search - activities
+ 					searchView.search();
+
+ 				} else {
+
+ 					// activate windows
+ 					dashboardCategories.currentIndex = previousIndex;
+
+ 					// hide search button
+ 					dashboardCategories.contentItem.children[4].state = "hide";
+
+ 				};
+
+ 			}
+
+ 		}
 
 		Keys.onPressed: {
 			if(event.key == Qt.Key_Backspace) {
@@ -244,59 +252,68 @@ Item {
 				bottom: parent.bottom
 			}
 
+
+            //WindowSwitcher is broken.  WindowThumbItem is almost certainly broken.
+            // this is the part I want, at that.
+
 // 			WindowSwitcher {
 // 				id: windowsView
 // 				opacity: 0
 // 				visible: (windowsView.opacity) ? true : false
 //
-// 				states: State {
-// 					name: 'show'
+//				states: State {
+//					name: 'show'
 // 					PropertyChanges {
 // 						target: windowsView
 // 						opacity: 1
 // 					}
 // 				}
-//
+
 // 				transitions: Transition {
 // 					PropertyAnimation { property: "opacity"; duration: 100 }
 // 				}
-//
-// 			}
-//
-// 			Applications {
-// 				id: applicationsView
-// 				opacity: 0
-//
-// 				states: State {
-// 					name: 'show'
-// 					PropertyChanges {
-// 						target: applicationsView
-// 						opacity: 1
-// 					}
-// 				}
-//
-// 				transitions: Transition {
-// 					PropertyAnimation { property: "opacity"; duration: 100 }
-// 				}
-// 			}
-//
-// 			Activities {
-// 				id: activitiesView
-// 				opacity: 0
-//
-// 				states: State {
-// 					name: 'show'
-// 					PropertyChanges {
-// 						target: activitiesView
-// 						opacity: 1
-// 					}
-// 				}
-//
-// 				transitions: Transition {
-// 					PropertyAnimation { property: "opacity"; duration: 100 }
-// 				}
+
 // 			}
 
+            // Applications seem to work.
+ 			Applications {
+ 				id: applicationsView
+ 				opacity: 0
+
+ 				states: State {
+ 					name: 'show'
+ 					PropertyChanges {
+ 						target: applicationsView
+ 						opacity: 1
+ 					}
+ 				}
+
+ 				transitions: Transition {
+ 					PropertyAnimation { property: "opacity"; duration: 100 }
+ 				}
+ 			}
+//
+            // Activities are definitely broken.
+            // Actually, ActivityItems are broken.
+            /*
+ 			Activities {
+ 				id: activitiesView
+ 				opacity: 0
+
+ 				states: State {
+ 					name: 'show'
+ 					PropertyChanges {
+ 						target: activitiesView
+ 						opacity: 1
+ 					}
+ 				}
+
+ 				transitions: Transition {
+ 					PropertyAnimation { property: "opacity"; duration: 100 }
+ 				}
+ 			}*/
+
+            // Search is broken.
 // 			Search {
 // 				id: searchView
 // 				opacity: 0
@@ -312,7 +329,7 @@ Item {
 	PlasmaCore.Dialog {
         id: dashboardContent
         x: 0
-//         windowFlags: Qt.Popup
+        flags: Qt.Popup
         visible: false
 
         mainItem: viewsContainer
@@ -323,7 +340,7 @@ Item {
         id: dashboardButton
         x: 0
         y: 0
-//         windowFlags: Qt.X11BypassWindowManagerHint
+        flags: Qt.X11BypassWindowManagerHint
 
         mainItem: dashboardButttonContainer
 	}
@@ -406,74 +423,74 @@ Item {
 		}
 
 		Component.onCompleted: {
-// 			stateSource = sources[sources.length - 1];
-// 			connectedSources = sources;
-//
-// 			runningActivities = activitiesSource.data[stateSource].Running.length;
-//
-// 			for(var i=0; i < sources.length; i++) {
-// 				var sourceData = activitiesSource.data[sources[i]];
-// 				sourceData.DataEngineSource = sources[i];
-//
-// 				activitiesModel.append(sourceData);
-// 			}
-//
-// 			// connect signal after connecting sources
-// 			activitiesSource.dataChanged.connect(function() {
-//
-// 				runningActivities = activitiesSource.data[stateSource].Running.length;
-//
-// 				// get new wallpapers
-// 				for(var i=0; i < activitiesModel.count; i++) {
-//
-// 					for(var j=0; j < activitiesSource.connectedSources.length; j++) {
-//
-// 						if(activitiesModel.get(i).DataEngineSource == activitiesSource.connectedSources[j]) {
-//
-// 							activitiesModel.get(i).Icon = activitiesSource.data[activitiesSource.connectedSources[j]].Icon;
-//
-// 						}
-//
-// 					}
-//
-// 				}
-//
-// 				if(currentActivity != activitiesSource.data[stateSource].Current) {
-// 					currentActivity = activitiesSource.data[stateSource].Current;
-//
-// 					// get new windows for activity
-//
-// 					// when changed activity, get new windows
-// 					windowThumbs.clear();
-//
-// 					// add new clients to model
-// 					var clients = workspace.clientList();
-//
-// 					var i = 0;
-// 					for (i = 0; i < clients.length; i++) {
-//
-// 						if(visibleClient(clients[i])) {
-//
-// 							// match activity
-// 							if(clients[i].activities == "" || clients[i].activities == currentActivity) {
-//
-// 								windowThumbs.append({
-// 									"windowId": clients[i].windowId,
-// 									"gridId": windowThumbs.count,
-// 									"client": clients[i]
-// 								});
-//
-// 							};
-//
-// 						}
-//
-// 					}
-//
-// 					// recalculate thumb size
-// 					windowsView.recalculateCellSize();
-// 				}
-//
-// 			})
+ 			stateSource = sources[sources.length - 1];
+ 			connectedSources = sources;
+
+ 			runningActivities = activitiesSource.data[stateSource].Running.length;
+
+ 			for(var i=0; i < sources.length; i++) {
+ 				var sourceData = activitiesSource.data[sources[i]];
+ 				sourceData.DataEngineSource = sources[i];
+
+ 				activitiesModel.append(sourceData);
+ 			}
+
+ 			// connect signal after connecting sources
+ 			activitiesSource.dataChanged.connect(function() {
+
+ 				runningActivities = activitiesSource.data[stateSource].Running.length;
+
+ 				// get new wallpapers
+ 				for(var i=0; i < activitiesModel.count; i++) {
+
+ 					for(var j=0; j < activitiesSource.connectedSources.length; j++) {
+
+ 						if(activitiesModel.get(i).DataEngineSource == activitiesSource.connectedSources[j]) {
+
+ 							activitiesModel.get(i).Icon = activitiesSource.data[activitiesSource.connectedSources[j]].Icon;
+
+ 						}
+
+ 					}
+
+ 				}
+
+ 				if(currentActivity != activitiesSource.data[stateSource].Current) {
+ 					currentActivity = activitiesSource.data[stateSource].Current;
+
+ 					// get new windows for activity
+
+ 					// when changed activity, get new windows
+ 					windowThumbs.clear();
+
+ 					// add new clients to model
+ 					var clients = workspace.clientList();
+
+ 					var i = 0;
+ 					for (i = 0; i < clients.length; i++) {
+
+ 						if(visibleClient(clients[i])) {
+
+ 							// match activity
+ 							if(clients[i].activities == "" || clients[i].activities == currentActivity) {
+
+ 								windowThumbs.append({
+ 									"windowId": clients[i].windowId,
+ 									"gridId": windowThumbs.count,
+ 									"client": clients[i]
+ 								});
+
+ 							};
+
+ 						}
+
+ 					}
+
+ 					// recalculate thumb size
+ 					windowsView.recalculateCellSize();
+ 				}
+
+ 			})
 
 		}
 	}
@@ -486,17 +503,17 @@ Item {
 	ListModel {
 		id: windowThumbs
 	}
-
+    /*
 	ListModel {
 		id: activitiesModel
-	}
+	}*/
 
-	/*
+	
 	PlasmaCore.DataModel {
 		id: activitiesModel
 		dataSource: activitiesSource
     }
-    */
+    
 
 	// toggle complete dashboard
 	function toggleBoth() {
@@ -510,7 +527,7 @@ Item {
 		} else {
 
 			// clear search field
-// 			searchField.text = "";
+ 			searchField.text = "";
 			// show content
 			dashboardContent.visible = true;
 
@@ -521,7 +538,7 @@ Item {
 			}
 
 			// Activate Window and text field
-			dashboardContent.activateWindow();
+			dashboardContent.requestActivation();
 
 			// Activate Window and text field
 			viewsContainer.forceActiveFocus();
@@ -555,17 +572,27 @@ Item {
 
 		dashboardContent.y = 22;
 		dashboardContent.x = 0;
-		dashboardContent.visible = false;
+		dashboardContent.visible = true;
 
 		dashboardButton.visible = true;
 
 		// TODO removed from api?
+        function OnStart() {
+            console.log("Wheee");
+ 		    // registerScreenEdge(KWin.ElectricTopLeft, function() {
+ 			toggleBoth();
+ 		//});
+        }
+        //toggleBoth();
+        //OnStart()
+        //viewsContainer.forceActiveFocus();
+
 // 		registerScreenEdge(KWin.ElectricTopLeft, function() {
 // 			toggleBoth();
 // 		});
 
 		// TODO removed from api?
-// 		registerShortcut("Activate Actos Dashboard", "", "Meta+A", function() {
+// 		KWin.registerShortcut("Activate Actos Dashboard", "", "Meta+A", function() {
 // 			toggleBoth();
 // 		});
 	}

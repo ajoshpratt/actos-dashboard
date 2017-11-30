@@ -18,6 +18,7 @@ Item {
 		cellWidth: 260
 		cellHeight: 180
 		model: activitiesModel
+
 		delegate: ActivityItem {}
 	}
 	

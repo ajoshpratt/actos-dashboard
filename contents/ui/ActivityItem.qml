@@ -16,7 +16,7 @@ Component {
 			y: 10
 			height: 30
 			opacity: 0
-			imagePath: 'widgets/frame'
+			//imagePath: 'widgets/frame'
 			prefix: 'plain'
 			
 			anchors {

@@ -25,7 +25,8 @@ Item {
 		cellWidth: cellSize
 		cellHeight: cellSize
 		
-		model: windowThumbs
+		console.log("Is this is the place.")
+		model: parent.windowThumbs
 		delegate: WindowThumbItem {}
 		
 		MouseArea {
@@ -109,7 +110,7 @@ Item {
 				
 			}
 			
-		}
+        }
 		
 		// recalculate thumb size
 		recalculateCellSize();

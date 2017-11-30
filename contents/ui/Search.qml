@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as Plasma
-import org.kde.plasma.graphicswidgets 2.0 as PlasmaWidgets
+//import org.kde.plasma.graphicswidgets 2.0 as PlasmaWidgets
 import org.kde.runnermodel 2.0 as RunnerModels
 
 Item {
@@ -31,22 +31,23 @@ Item {
 				visible: parent.GridView.isCurrentItem
 			}
 			
-			PlasmaWidgets.IconWidget {
-				id: resultIcon
-				text: label
-				preferredIconSize: "64x64"
-				minimumIconSize: "64x64"
-				drawBackground: false
-				
-				anchors {
-					fill: parent
-					margins: 10
-				}
-				
-				onClicked: {
-					runApp(runnerid, index);
-				}
-			}
+			//PlasmaWidgets.IconWidget {
+//			Plasma.IconWidget {
+//				id: resultIcon
+//				text: label
+//				preferredIconSize: "64x64"
+//				minimumIconSize: "64x64"
+//				drawBackground: false
+//				
+//				anchors {
+//					fill: parent
+//					margins: 10
+//				}
+//				
+//				onClicked: {
+//					runApp(runnerid, index);
+//				}
+//			}
 			
 			Keys.onPressed: {
 				if ( event.key == Qt.Key_Enter || event.key == Qt.Key_Return ) {

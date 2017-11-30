@@ -164,24 +164,43 @@ Item {
 		Item {
 			width: 128
 			height: 128
-			
-// 			PlasmaWidgets.IconWidget {
-// 				text: modelData.name
-// 				icon: QIcon(modelData.iconName)
-// 				preferredIconSize: "48x48"
-// 				minimumIconSize: "48x48"
-// 				drawBackground: true
-//
-// 				anchors.fill: parent
-//
-// 				onClicked: {
-// 					var operation = appsSource.serviceForSource(modelData.menuId).operationDescription("launch");
-// 					appsSource.serviceForSource(modelData.menuId).startOperationCall(operation);
-//
-// 					// hide dashboard
-// 					toggleLauncher();
-// 				}
-// 			}
+			PlasmaCore.FrameSvgItem {
+                id: activityLabel
+                imagePath: 'widgets/viewitem'
+                prefix: 'normal'
+                height: 30
+                //text: modelData.name
+                visible: parent.state != 'create'
+                //onClicked {
+ 				//	var operation = appsSource.serviceForSource(modelData.menuId).operationDescription("launch");
+ 				//	appsSource.serviceForSource(modelData.menuId).startOperationCall(operation);
+
+ 					// hide dashboard
+ 				//	toggleLauncher();
+ 				//}
+            }
+ 			//PlasmaCore.IconItem {
+                //setActive: true
+ 				//text: modelData.name
+ 				//icon: "plasma"
+                //height: 3
+                //isVisible: 1
+ 				//icon: modelData.iconName
+ 				//preferredIconSize: "48x48"
+ 				//minimumIconSize: "48x48"
+ 				//drawBackground: true
+
+ 				//anchors.fill: parent
+
+ 				//onClicked {
+ 				//keyPressEvent {}
+ 				//	var operation = appsSource.serviceForSource(modelData.menuId).operationDescription("launch");
+ 				//	appsSource.serviceForSource(modelData.menuId).startOperationCall(operation);
+
+ 					// hide dashboard
+ 				//	toggleLauncher();
+ 				//}
+ 			//}
 		}
 	}
 	
